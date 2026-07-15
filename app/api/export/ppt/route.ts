@@ -8,6 +8,12 @@ function safeText(value: string, max = 500) {
     .slice(0, max);
 }
 
+function bulletList(items: string[], max = 180) {
+  return items
+    .map((item: string) => "- " + safeText(item, max))
+    .join("\n");
+}
+
 export async function POST(req: NextRequest) {
   const data = await req.json().catch(() => null);
   const s = data?.snapshot || (await updateIntelligence());
@@ -54,21 +60,16 @@ export async function POST(req: NextRequest) {
     color: "F7EEDB"
   });
 
-  slide.addText(
-    s.summary.bullets
-      .map((b: string) => `• ${safeText(b, 220)}`)
-      .join("\n"),
-    {
-      x: 0.7,
-      y: 2.5,
-      w: 11,
-      h: 2.5,
-      fontSize: 12,
-      color: "F7EEDB",
-      breakLine: false,
-      fit: "shrink"
-    }
-  );
+  slide.addText(bulletList(s.summary.bullets, 220), {
+    x: 0.7,
+    y: 2.5,
+    w: 11,
+    h: 2.5,
+    fontSize: 12,
+    color: "F7EEDB",
+    breakLine: false,
+    fit: "shrink"
+  });
 
   slide = pptx.addSlide();
 
@@ -86,21 +87,24 @@ export async function POST(req: NextRequest) {
     color: "D4AF37"
   });
 
-  slide.addText(
-    s.summary.risks
-      .map((b: string) => `• ${safeText(b, 180)}`)
-      .join("\n"),
-    {
-      x: 0.7,
-      y: 1.3,
-      w: 5.7,
-      h: 4.8,
-      fontSize: 10,
-      color: "F7EEDB",
-      fit: "shrink"
-    }
-  );
+  slide.addText("Risks", {
+    x: 0.7,
+    y: 1,
+    w: 5.7,
+    h: 0.3,
+    fontSize: 15,
+    bold: true,
+    color: "EF4444"
+  });
 
-  slide.addText(
-    s.summary.opportunities
-      .map((b: string) => `• ${safeText(b, 180)}`)
+  slide.addText(bulletList(s.summary.risks, 180), {
+    x: 0.7,
+    y: 1.4,
+    w: 5.7,
+    h: 4.6,
+    fontSize: 10,
+    color: "F7EEDB",
+    fit: "shrink"
+  });
+
+  slide.addText("Opportunities", {
