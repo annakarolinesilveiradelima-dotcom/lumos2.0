@@ -19,7 +19,6 @@ export async function POST(req: NextRequest) {
   pptx.subject = "Harry Potter Entertainment Intelligence";
   pptx.title = "Lumos Executive Intelligence";
   pptx.company = "Lumos";
-  pptx.lang = "pt-BR";
 
   let slide = pptx.addSlide();
 
@@ -105,29 +104,3 @@ export async function POST(req: NextRequest) {
   slide.addText(
     s.summary.opportunities
       .map((b: string) => `• ${safeText(b, 180)}`)
-      .join("\n"),
-    {
-      x: 6.8,
-      y: 1.3,
-      w: 5.7,
-      h: 4.8,
-      fontSize: 10,
-      color: "F7EEDB",
-      fit: "shrink"
-    }
-  );
-
-  const arrayBuffer = await pptx.write({
-    outputType: "arraybuffer"
-  });
-
-  const body = Buffer.from(arrayBuffer as ArrayBuffer);
-
-  return new Response(body, {
-    headers: {
-      "content-type":
-        "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-      "content-disposition": "attachment; filename=lumos-intelligence.pptx"
-    }
-  });
-}
