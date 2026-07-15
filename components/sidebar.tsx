@@ -13,20 +13,17 @@ import {
   Users
 } from "lucide-react";
 
-const nav = [
-  ["dashboard", BarChart3],
-  ["summary", Sparkles],
-  ["timeline", CalendarDays],
-  ["news", Newspaper],
-  ["trends", TrendingUp],
-  ["reddit", Search],
-  ["youtube", PlaySquare],
-  ["x", Clapperboard],
-  ["creators", Users],
-  ["ai", Bot],
-  ["risks", FileWarning],
-  ["opportunities", Lightbulb]
-] as const;
+function NavItem({ href, label, icon: Icon }: { href: string; label: string; icon: React.ElementType }) {
+  return (
+    <a
+      href={href}
+      className="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm capitalize text-parchment/75 transition hover:bg-white/10 hover:text-gold"
+    >
+      <Icon size={17} />
+      <span>{label}</span>
+    </a>
+  );
+}
 
 export function Sidebar() {
   return (
@@ -46,14 +43,18 @@ export function Sidebar() {
       </div>
 
       <nav className="space-y-2">
-        {nav.map(([id, Icon]) => {
-          return (
-            {`#${id}`}
-              <Icon size={17} />
-              <span>{id}</span>
-            </a>
-          );
-        })}
+        <NavItem href="#dashboard" label="dashboard" icon={BarChart3} />
+        <NavItem href="#summary" label="summary" icon={Sparkles} />
+        <NavItem href="#timeline" label="timeline" icon={CalendarDays} />
+        <NavItem href="#news" label="news" icon={Newspaper} />
+        <NavItem href="#trends" label="trends" icon={TrendingUp} />
+        <NavItem href="#reddit" label="reddit" icon={Search} />
+        <NavItem href="#youtube" label="youtube" icon={PlaySquare} />
+        <NavItem href="#x" label="x" icon={Clapperboard} />
+        <NavItem href="#creators" label="creators" icon={Users} />
+        <NavItem href="#ai" label="ai" icon={Bot} />
+        <NavItem href="#risks" label="risks" icon={FileWarning} />
+        <NavItem href="#opportunities" label="opportunities" icon={Lightbulb} />
       </nav>
     </aside>
   );
