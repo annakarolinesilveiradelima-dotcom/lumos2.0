@@ -1,0 +1,5 @@
+export type Sentiment = "positive" | "negative";
+export type SourceKind = "news" | "google" | "trends" | "youtube" | "reddit" | "x" | "creator";
+export type IntelligenceItem = { id:string; title:string; source:string; sourceKind:SourceKind; url:string; publishedAt:string; summary:string; sentiment:Sentiment; sentimentReason:string; riskScore:number; opportunityScore:number; tags:string[]; reach:number; region:string; creator?:string; };
+export type TimelineEvent = { date:string; title:string; description:string; intensity:number; sentiment:Sentiment; items:string[] };
+export type IntelligenceSnapshot = { project:string; generatedAt:string; dateFrom:string; dateTo:string; totalItems:number; items:IntelligenceItem[]; timeline:TimelineEvent[]; summary:{ headline:string; bullets:string[]; risks:string[]; opportunities:string[]; sentiment:{positive:number;negative:number}; topSources:{source:string;count:number}[]; }; trends:{date:string;value:number;topic:string}[]; creators:{name:string;platform:string;score:number;audience:string;fit:string;risks:string[]}[]; };

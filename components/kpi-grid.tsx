@@ -1,0 +1,2 @@
+import { IntelligenceSnapshot } from "@/lib/types";import { Card } from "@/components/ui";
+export function KpiGrid({s}:{s:IntelligenceSnapshot}){const k=[['Signals',s.totalItems],['Positive',s.summary.sentiment.positive],['Negative',s.summary.sentiment.negative],['Sources',s.summary.topSources.length]];return <section id="dashboard" className="grid gap-4 md:grid-cols-4">{k.map(([a,b])=><Card key={a as string}><p className="text-sm text-parchment/55">{a}</p><p className="mt-2 text-4xl font-black text-gold">{b}</p></Card>)}</section>}

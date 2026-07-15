@@ -1,0 +1,2 @@
+import { IntelligenceSnapshot } from "@/lib/types";
+export function toCSV(s: IntelligenceSnapshot){const rows=[["publishedAt","source","type","sentiment","riskScore","opportunityScore","title","summary","url"],...s.items.map(i=>[i.publishedAt,i.source,i.sourceKind,i.sentiment,String(i.riskScore),String(i.opportunityScore),i.title,i.summary,i.url])];return rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(",")).join("\n")}
