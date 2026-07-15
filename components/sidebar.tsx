@@ -26,7 +26,7 @@ const nav = [
   ["ai", Bot],
   ["risks", FileWarning],
   ["opportunities", Lightbulb]
-];
+] as const;
 
 export function Sidebar() {
   return (
@@ -47,12 +47,10 @@ export function Sidebar() {
 
       <nav className="space-y-2">
         {nav.map(([id, Icon]) => {
-          const IconComponent = Icon as React.ElementType;
-
           return (
             {`#${id}`}
-              <IconComponent size={17} />
-              {id}
+              <Icon size={17} />
+              <span>{id}</span>
             </a>
           );
         })}
@@ -60,3 +58,4 @@ export function Sidebar() {
     </aside>
   );
 }
+`
