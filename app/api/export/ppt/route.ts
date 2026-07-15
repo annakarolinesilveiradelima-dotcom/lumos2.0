@@ -26,13 +26,13 @@ export async function POST(req: NextRequest) {
   pptx.title = "Lumos Executive Intelligence";
   pptx.company = "Lumos";
 
-  let slide = pptx.addSlide();
+  const slide1 = pptx.addSlide();
 
-  slide.background = {
+  slide1.background = {
     color: "090806"
   };
 
-  slide.addText("Lumos", {
+  slide1.addText("Lumos", {
     x: 0.5,
     y: 0.4,
     w: 4,
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
     color: "D4AF37"
   });
 
-  slide.addText("Executive Intelligence Harry Potter", {
+  slide1.addText("Executive Intelligence Harry Potter", {
     x: 0.5,
     y: 1,
     w: 8,
@@ -51,33 +51,32 @@ export async function POST(req: NextRequest) {
     color: "F7EEDB"
   });
 
-  slide.addText(safeText(s.summary.headline, 220), {
+  slide1.addText(safeText(s.summary.headline, 220), {
     x: 0.5,
     y: 1.6,
     w: 11.5,
-    h: 0.7,
+    h: 0.8,
     fontSize: 13,
     color: "F7EEDB"
   });
 
-  slide.addText(bulletList(s.summary.bullets, 220), {
+  slide1.addText(bulletList(s.summary.bullets, 220), {
     x: 0.7,
-    y: 2.5,
+    y: 2.6,
     w: 11,
-    h: 2.5,
+    h: 2.8,
     fontSize: 12,
     color: "F7EEDB",
-    breakLine: false,
     fit: "shrink"
   });
 
-  slide = pptx.addSlide();
+  const slide2 = pptx.addSlide();
 
-  slide.background = {
+  slide2.background = {
     color: "090806"
   };
 
-  slide.addText("Risks & Opportunities", {
+  slide2.addText("Risks & Opportunities", {
     x: 0.5,
     y: 0.5,
     w: 8,
@@ -87,9 +86,9 @@ export async function POST(req: NextRequest) {
     color: "D4AF37"
   });
 
-  slide.addText("Risks", {
+  slide2.addText("Risks", {
     x: 0.7,
-    y: 1,
+    y: 1.2,
     w: 5.7,
     h: 0.3,
     fontSize: 15,
@@ -97,14 +96,46 @@ export async function POST(req: NextRequest) {
     color: "EF4444"
   });
 
-  slide.addText(bulletList(s.summary.risks, 180), {
+  slide2.addText(bulletList(s.summary.risks, 180), {
     x: 0.7,
-    y: 1.4,
+    y: 1.7,
     w: 5.7,
-    h: 4.6,
+    h: 4.4,
     fontSize: 10,
     color: "F7EEDB",
     fit: "shrink"
   });
 
-  slide.addText("Opportunities", {
+  slide2.addText("Opportunities", {
+    x: 6.8,
+    y: 1.2,
+    w: 5.7,
+    h: 0.3,
+    fontSize: 15,
+    bold: true,
+    color: "D4AF37"
+  });
+
+  slide2.addText(bulletList(s.summary.opportunities, 180), {
+    x: 6.8,
+    y: 1.7,
+    w: 5.7,
+    h: 4.4,
+    fontSize: 10,
+    color: "F7EEDB",
+    fit: "shrink"
+  });
+
+  const arrayBuffer = await pptx.write({
+    outputType: "arraybuffer"
+  });
+
+  const body = Buffer.from(arrayBuffer as ArrayBuffer);
+
+  return new Response(body, {
+    headers: {
+      "content-type": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+      "content-disposition": "attachment; filename=lumos-intelligence.pptx"
+    }
+  });
+}
