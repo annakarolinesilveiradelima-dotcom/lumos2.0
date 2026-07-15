@@ -48,7 +48,11 @@ export function Sidebar() {
       <nav className="space-y-2">
         {nav.map(([id, Icon]) => {
           return (
-            {`#${id}`}
+            <a
+              key={id}
+              href={`#${id}`}
+              className="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm capitalize text-parchment/75 transition hover:bg-white/10 hover:text-gold"
+            >
               <Icon size={17} />
               <span>{id}</span>
             </a>
@@ -58,4 +62,3 @@ export function Sidebar() {
     </aside>
   );
 }
-`
